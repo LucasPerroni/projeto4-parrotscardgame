@@ -1,0 +1,32 @@
+/* GENERAL */
+
+* {
+    box-sizing: border-box;
+    --title: #75B79E;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(238, 249, 191);
+}
+
+
+/* HEADER */
+
+header {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 40px auto;
+}
+
+header h1 {
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--title);
+}
+
+
+/* MAIN */
