@@ -3,6 +3,8 @@
 * {
     box-sizing: border-box;
     --title: #75B79E;
+    --card: #A7E9AF;
+    --card--border: #99CEA8;
 }
 
 body {
@@ -14,7 +16,7 @@ body {
 /* HEADER */
 
 header {
-    width: 80%;
+    width: 75%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -30,3 +32,50 @@ header h1 {
 
 
 /* MAIN */
+
+main {
+    width: 75%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    justify-content: space-evenly;
+}
+
+.card {
+    width: 117px;
+    height: 146px;
+    position: relative;
+    margin: 0 17px 34px;
+}
+
+.face {
+    width: 100%;
+    height: 100%;
+    background-color: var(--card);
+    border: 1px solid var(--card--border);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    backface-visibility: hidden;
+    transition: all .5s;
+    transform-style: preserve-3d;
+}
+
+.face img {
+    height: 100px;
+    width: 100px;
+}
+
+.front-face {
+    transform: rotateY(180deg);
+}
+
+.card:hover .back-face {
+    transform: rotateY(-180deg);
+}
+
+.card:hover .front-face {
+    transform: rotateY(0deg);
+}
