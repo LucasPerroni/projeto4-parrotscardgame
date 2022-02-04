@@ -1,32 +1,19 @@
 let cards = null
+let call = null
 const cardsList = ["bobrossparrot.gif", 
-    "front.png", 
     "bobrossparrot.gif", 
-    "front.png",
     "explodyparrot.gif", 
-    "front.png", 
     "explodyparrot.gif", 
-    "front.png", 
     "fiestaparrot.gif", 
-    "front.png", 
     "fiestaparrot.gif", 
-    "front.png", 
     "metalparrot.gif", 
-    "front.png", 
     "metalparrot.gif", 
-    "front.png", 
     "revertitparrot.gif", 
-    "front.png", 
     "revertitparrot.gif", 
-    "front.png", 
     "tripletsparrot.gif", 
-    "front.png", 
     "tripletsparrot.gif", 
-    "front.png", 
     "unicornparrot.gif", 
-    "front.png", 
     "unicornparrot.gif", 
-    "front.png"
 ]
 
 askCards()
@@ -40,11 +27,13 @@ function askCards() {
 
 function displayCards() {
     let main = document.querySelector("main")
-    for (let i = 0; i < cards*2; i += 2) {
+    let cardsListChosen = [] 
+    for (let i = 0; i < cards; i++) {
+        cardsListChosen.push(cardsList[i])
         main.innerHTML += `
         <div class="card" onclick="rotateCard(this)">
             <div class="face front-face"><img src="images/${cardsList[i]}" alt="parrot Gif"></div>
-            <div class="face back-face"><img src="images/${cardsList[i + 1]}" alt="parrot"></div>
+            <div class="face back-face"><img src="images/front.png" alt="parrot"></div>
         </div>
         `
     }
@@ -54,4 +43,37 @@ function rotateCard(element) {
     let face = element.childNodes
     face[1].classList.toggle("front-face-rotate")
     face[3].classList.toggle("back-face-rotate")
+    if (call === null) {
+        element.classList.toggle("selected")
+        compareCards()
+    }
+}
+
+function compareCards() {
+    let wrongCards = []
+    let turnedCard = document.querySelectorAll("main .selected")
+    if (turnedCard[1] !== undefined) {
+
+        if (turnedCard[1].childNodes[1].innerHTML === turnedCard[0].childNodes[1].innerHTML) {
+            for (let i = 0; i < 2; i++) {
+                document.querySelector("main .selected").onclick = null
+                document.querySelector("main .selected").classList.remove("selected")
+            }
+        } else {
+            for (let i = 0; i < 2; i++) {
+                let wrong = document.querySelector("main .selected")
+                wrong.classList.remove("selected")
+                wrongCards.push(wrong)
+            }
+            call = "nop"
+            setTimeout(rotateCard, 1000, wrongCards[0])
+            setTimeout(rotateCard, 1000, wrongCards[1])
+            setTimeout(callNullifier, 1000)
+        }
+        
+    }
+}
+
+function callNullifier() {
+    call = null
 }
