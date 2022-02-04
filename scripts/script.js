@@ -1,5 +1,8 @@
 let cards = null
 let call = null
+let rounds = 0
+let missingCards = null
+let continueGame = null
 const cardsList = ["bobrossparrot.gif", 
     "bobrossparrot.gif", 
     "explodyparrot.gif", 
@@ -19,9 +22,12 @@ const cardsList = ["bobrossparrot.gif",
 askCards()
 
 function askCards() {
+    cards = null
+    rounds = 0
     while (cards < 4 || cards > 14 || cards%2 === 1) {
         cards = parseInt(prompt("How many cards? [Even number between 4 and 14]"))
     }
+    missingCards = cards
     displayCards()
 }
 
@@ -59,6 +65,11 @@ function compareCards() {
                 document.querySelector("main .selected").onclick = null
                 document.querySelector("main .selected").classList.remove("selected")
             }
+            rounds += 1
+            missingCards -= 2
+            if (missingCards === 0) {
+                setTimeout(endGame, 1000)
+            }
         } else {
             for (let i = 0; i < 2; i++) {
                 let wrong = document.querySelector("main .selected")
@@ -69,6 +80,7 @@ function compareCards() {
             setTimeout(rotateCard, 1000, wrongCards[0])
             setTimeout(rotateCard, 1000, wrongCards[1])
             setTimeout(callNullifier, 1000)
+            rounds += 1
         }
         
     }
@@ -76,4 +88,23 @@ function compareCards() {
 
 function callNullifier() {
     call = null
+}
+
+function endGame() {
+    if (missingCards === 0) {
+        alert(`Congratulations, you won in ${rounds} rounds!`)
+        while (continueGame !== "y" && continueGame !== "n") {
+            continueGame = prompt("Do you want to keep playing? [y/n]")
+        }
+        if (continueGame === "y") {
+            clearHTML()
+            askCards()
+        } else if (continueGame === "n") {
+        }
+    }
+    continueGame = null
+}
+
+function clearHTML() {
+    document.querySelector("main").innerHTML = ""
 }
