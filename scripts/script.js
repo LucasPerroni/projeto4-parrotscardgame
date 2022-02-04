@@ -1,9 +1,10 @@
 let cards = null
 let call = null
-let rounds = 0
 let missingCards = null
 let continueGame = null
 let interval = null
+let click = null
+let rounds = 0
 const cardsList = ["bobrossparrot.gif", 
     "bobrossparrot.gif", 
     "explodyparrot.gif", 
@@ -19,6 +20,7 @@ const cardsList = ["bobrossparrot.gif",
     "unicornparrot.gif", 
     "unicornparrot.gif", 
 ]
+let cardsListChosen = []
 
 askCards()
 
@@ -36,7 +38,7 @@ function askCards() {
 
 function displayCards() {
     let main = document.querySelector("main")
-    let cardsListChosen = [] 
+    cardsListChosen = [] 
     for (let i = 0; i < cards; i++) {
         cardsListChosen.push(cardsList[i])
         main.innerHTML += `
@@ -46,6 +48,7 @@ function displayCards() {
         </div>
         `
     }
+    click = document.querySelector("main .card").onclick
 }
 
 function rotateCard(element) {
@@ -74,6 +77,7 @@ function compareCards() {
                 setTimeout(endGame, 1000)
             }
         } else {
+            blockCards()
             for (let i = 0; i < 2; i++) {
                 let wrong = document.querySelector("main .selected")
                 wrong.classList.remove("selected")
@@ -82,10 +86,13 @@ function compareCards() {
             call = "nop"
             setTimeout(rotateCard, 1000, wrongCards[0])
             setTimeout(rotateCard, 1000, wrongCards[1])
+            setTimeout(enableCards, 1000)
             setTimeout(callNullifier, 1000)
             rounds += 1
         }
         
+    } else if (turnedCard[0] !== undefined && turnedCard[1] === undefined) {
+        turnedCard[0].onclick = null
     }
 }
 
@@ -121,4 +128,18 @@ function stopWatch() {
 function stopWatchCounter() {
     let timer = document.querySelector("header p")
     timer.innerHTML = parseInt(timer.innerHTML) + 1
+}
+
+function blockCards() {
+    let testCards = document.querySelectorAll("main .card")
+    for (let i = 0; i < testCards.length; i++) {
+        testCards[i].onclick = null
+    }
+}
+
+function enableCards() {
+    let allCards = document.querySelectorAll("main .card")
+    for (let i = 0; i < allCards.length; i++) {
+        allCards[i].onclick = click
+    }
 }
