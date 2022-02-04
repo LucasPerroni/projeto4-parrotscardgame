@@ -2,26 +2,29 @@
 
 * {
     box-sizing: border-box;
+    --body: rgb(238, 249, 191);
     --title: #75B79E;
     --card: #A7E9AF;
     --card--border: #99CEA8;
+    --stopwatch: red;
 }
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: rgb(238, 249, 191);
+    background-color: var(--body);
 }
 
 
 /* HEADER */
 
 header {
-    width: 75%;
+    width: 80%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     margin: 40px auto;
+    position: relative;
 }
 
 header h1 {
@@ -29,6 +32,15 @@ header h1 {
     font-weight: 700;
     text-align: center;
     color: var(--title);
+}
+
+header p {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: var(--stopwatch);
+    font-weight: 700;
+    font-size: 20px;
 }
 
 
