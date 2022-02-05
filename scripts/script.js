@@ -45,9 +45,9 @@ function displayCards() {
     cardsListChosen.sort(sortArray)
     for (let i = 0; i < cards; i++) {
         main.innerHTML += `
-        <div class="card" onclick="rotateCard(this)">
-            <div class="face front-face"><img src="images/${cardsListChosen[i]}" alt="parrot Gif"></div>
-            <div class="face back-face"><img src="images/front.png" alt="parrot"></div>
+        <div class="card" data-identifier="card" onclick="rotateCard(this)">
+            <div class="face front-face" data-identifier="front-face"><img src="images/${cardsListChosen[i]}" alt="parrot Gif"></div>
+            <div class="face back-face" data-identifier="back-face"><img src="images/front.png" alt="parrot"></div>
         </div>
         `
     }
