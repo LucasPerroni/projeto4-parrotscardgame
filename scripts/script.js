@@ -41,9 +41,12 @@ function displayCards() {
     cardsListChosen = [] 
     for (let i = 0; i < cards; i++) {
         cardsListChosen.push(cardsList[i])
+    }
+    cardsListChosen.sort(sortArray)
+    for (let i = 0; i < cards; i++) {
         main.innerHTML += `
         <div class="card" onclick="rotateCard(this)">
-            <div class="face front-face"><img src="images/${cardsList[i]}" alt="parrot Gif"></div>
+            <div class="face front-face"><img src="images/${cardsListChosen[i]}" alt="parrot Gif"></div>
             <div class="face back-face"><img src="images/front.png" alt="parrot"></div>
         </div>
         `
@@ -142,4 +145,8 @@ function enableCards() {
     for (let i = 0; i < allCards.length; i++) {
         allCards[i].onclick = click
     }
+}
+
+function sortArray() {
+    return Math.random() - 0.5
 }
